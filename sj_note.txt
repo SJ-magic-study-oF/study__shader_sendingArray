@@ -1,0 +1,33 @@
+/************************************************************
+************************************************************/
+■1
+oF0.9.0で、配列をshaderにpassできないbugがあった。
+これ以降のversionで修正されているが、0.9.0でこの問題を回避する方法をメモしておく。
+
+■2
+2つの異なる1次元配列をpass.
+
+
+■3
+shaderでは、多次元配列を扱えない.
+	uniform float val[3][2];
+などはCompile Error.
+
+But, Array of vectorは定義できる.
+float val[][2]
+float val[][3]
+float val[][4]
+までの範囲であれば、vec2 - vec4を使って対応できる。
+実際にはeCPU側で多次元配列を定義し、これを Array of vectorとしてshaderに渡す。
+
+keyword
+	glUniform2fv, vec2
+	glUniform3fv, vec3,
+	glUniform4fv, vec4,
+	
+	glUniform2iv, ivec2,
+	glUniform3iv, ivec3,
+	glUniform4iv, ivec4,
+
+
+

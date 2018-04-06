@@ -1,14 +1,4 @@
-/************************************************************
-************************************************************/
 #include "ofApp.h"
-
-/************************************************************
-************************************************************/
-float ArrayData[][2]	= {{1, 2}, {3, 4}, {5, 101}};
-int i_ArrayData[][2]	= {{1, 2}, {3, 4}, {5, 101}};
-
-/************************************************************
-************************************************************/
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -28,8 +18,7 @@ void ofApp::setup(){
 	/********************
 	********************/
 	for(int i = 0; i < NUM; i++){
-		val_0[i] = i;
-		val_1[i] = 10 + i;
+		val[i] = i;
 	}
 }
 
@@ -71,21 +60,9 @@ void ofApp::draw(){
 		********************/
 #ifdef BUG_FIX
 		GLuint program = shader.getProgram();
+		GLint loc = glGetUniformLocation(program, "val");
 		glUseProgram(program);
-		
-		GLint loc = glGetUniformLocation(program, "val_0");
-		glUniform1fv(loc, NUM, val_0);
-		
-		loc = glGetUniformLocation(program, "val_1");
-		glUniform1fv(loc, NUM, val_1);
-		
-		loc = glGetUniformLocation(program, "ArrayData");
-		glUniform2fv(loc, 3 /* vec2 を"一かたまり"として、これが何setあるか */, &ArrayData[0][0] /* 先頭Address */); // 送り方に癖があるので、注意.
-		
-		loc = glGetUniformLocation(program, "i_ArrayData");
-		glUniform2iv(loc, 3 /* vec2 を"一かたまり"として、これが何setあるか */, &i_ArrayData[0][0] /* 先頭Address */); // 送り方に癖があるので、注意.
-		
-		
+		glUniform1fv(loc, NUM, val);
 #else
 		shader.setUniform1fv("val", val, NUM);
 #endif

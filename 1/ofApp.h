@@ -40,8 +40,7 @@ private:
 	enum{
 		NUM = 10,
 	};
-	float val_0[NUM];
-	float val_1[NUM];
+	float val[NUM];
 	
 public:
 	void setup();
